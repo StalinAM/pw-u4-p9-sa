@@ -16,6 +16,8 @@ const consultarPorId = async (id) => {
 }
 
 const guardar = async (estudiante) => {
+  console.log('estudiante en el client:', estudiante)
+
   const respuesta = axios
     .post('http://localhost:8081/matricula/api/v1.0/estudiantes', estudiante)
     .then((response) => response.data)
