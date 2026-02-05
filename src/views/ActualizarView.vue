@@ -70,6 +70,7 @@ export default {
     },
     formatFecha(fecha) {
       if (!fecha) return ''
+      // fecha viene como 'YYYY-MM-DD' del input type date
       return fecha + 'T00:00:00'
     }
   }
