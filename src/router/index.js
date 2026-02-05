@@ -13,11 +13,7 @@ const router = createRouter({
         esPublica: false
       }
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/LoginView.vue')
-    },
+
     {
       path: '/consultar-todos',
       name: 'consultar-todos',
