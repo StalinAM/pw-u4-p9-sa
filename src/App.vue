@@ -33,8 +33,32 @@
   </div>
 </template>
 
-<script setup>
-// No se importa HomeView aquí, se usa router-view para todo
+<script>
+import { obtenerTokenFacade } from './clients/authorizacionClient'
+export default {
+  data() {
+    return {
+      token: null
+    }
+  },
+  provide() {
+    return {
+      getToken: () => this.token
+    }
+  },
+  mounted() {
+    const fetchToken = async () => {
+      try {
+        const token = await obtenerTokenFacade()
+        this.token = token.accessToken
+        console.log('Token obtenido en App.vue:', token.accessToken)
+      } catch (error) {
+        console.error('Error al obtener el token en App.vue:', error)
+      }
+    }
+    fetchToken()
+  }
+}
 </script>
 
 <style>

@@ -37,6 +37,7 @@
 <script>
 import { guardarFacade } from '@/clients/matriculaClient'
 export default {
+  inject: ['getToken'],
   data() {
     return {
       nombre: '',
@@ -50,13 +51,17 @@ export default {
   },
   methods: {
     async guardar() {
-      const res = await guardarFacade({
-        nombre: this.nombre,
-        apellido: this.apellido,
-        fechaNacimiento: this.formatFecha(this.fechaNacimiento),
-        genero: this.genero,
-        provincia: this.provincia
-      })
+      const token = this.getToken ? this.getToken() : null
+      const res = await guardarFacade(
+        {
+          nombre: this.nombre,
+          apellido: this.apellido,
+          fechaNacimiento: this.formatFecha(this.fechaNacimiento),
+          genero: this.genero,
+          provincia: this.provincia
+        },
+        token
+      )
       this.mensaje = 'Estudiante guardado.'
       this.respuesta = res
     },

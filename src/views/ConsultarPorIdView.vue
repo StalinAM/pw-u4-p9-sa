@@ -19,12 +19,15 @@
 <script>
 import { consultarPorIdFacade } from '@/clients/matriculaClient'
 export default {
+  inject: ['getToken'],
   data() {
     return { id: '', estudiante: null }
   },
   methods: {
     async consultarPorId() {
-      this.estudiante = await consultarPorIdFacade(this.id)
+      const token = this.getToken ? this.getToken() : null
+      console.log('Token in ConsultarPorIdView:', token)
+      this.estudiante = await consultarPorIdFacade(this.id, token)
     },
     formatFecha(fecha) {
       if (!fecha) return ''

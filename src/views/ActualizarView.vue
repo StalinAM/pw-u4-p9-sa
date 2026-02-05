@@ -39,6 +39,7 @@
 <script>
 import { actualizarFacade } from '@/clients/matriculaClient'
 export default {
+  inject: ['getToken'],
   data() {
     return {
       id: '',
@@ -53,13 +54,17 @@ export default {
   },
   methods: {
     async actualizar() {
-      const res = await actualizarFacade(this.id, {
-        nombre: this.nombre,
-        apellido: this.apellido,
-        fechaNacimiento: this.formatFecha(this.fechaNacimiento),
-        genero: this.genero,
-        provincia: this.provincia
-      })
+      const res = await actualizarFacade(
+        this.id,
+        {
+          nombre: this.nombre,
+          apellido: this.apellido,
+          fechaNacimiento: this.formatFecha(this.fechaNacimiento),
+          genero: this.genero,
+          provincia: this.provincia
+        },
+        this.getToken()
+      )
       this.mensaje = 'Estudiante actualizado.'
       this.respuesta = res
     },

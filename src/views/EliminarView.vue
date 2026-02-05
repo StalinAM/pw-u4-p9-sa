@@ -9,12 +9,13 @@
 <script>
 import { eliminarFacade } from '@/clients/matriculaClient'
 export default {
+  inject: ['getToken'],
   data() {
     return { id: '', mensaje: '' }
   },
   methods: {
     async eliminar() {
-      await eliminarFacade(this.id)
+      await eliminarFacade(this.id, this.getToken ? this.getToken() : null)
       this.mensaje = 'Estudiante eliminado.'
     }
   }
