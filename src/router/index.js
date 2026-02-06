@@ -13,7 +13,11 @@ const router = createRouter({
         esPublica: false
       }
     },
-
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
     {
       path: '/consultar-todos',
       name: 'consultar-todos',
@@ -29,7 +33,7 @@ const router = createRouter({
       name: 'consultar-por-id',
       component: () => import('../views/ConsultarPorIdView.vue'),
       meta: {
-        requiereAuth: true,
+        requiereAuth: false,
         esPublica: false
       }
     },
@@ -74,14 +78,14 @@ const router = createRouter({
 /*Configuracion de guardias de rutas*/
 router.beforeEach((to, from, next) => {
   const requiereAuth = to.meta.requiereAuth
-  const estaAutenticado = false // Simulamos que el usuario no está autenticado
+  const estaAutenticado = localStorage.getItem('estaAutenticado')
 
   if (requiereAuth && !estaAutenticado) {
     console.log('A login')
 
     // Si la ruta requiere autenticación y el usuario no está autenticado,
     // redirigimos al usuario a la página de inicio de sesión o a otra ruta pública
-    next({ name: 'home' })
+    next({ name: 'login' })
   } else {
     console.log('Pase libre')
 
