@@ -20,14 +20,13 @@
 <script>
 import { consultarTodosFacade } from '@/clients/matriculaClient'
 export default {
-  inject: ['getToken'],
   data() {
     return { estudiantes: [] }
   },
   methods: {
     async consultarTodos() {
       this.estudiantes = await consultarTodosFacade(
-        this.getToken ? this.getToken() : null
+        localStorage.getItem('token') || null
       )
     },
     formatFecha(fecha) {

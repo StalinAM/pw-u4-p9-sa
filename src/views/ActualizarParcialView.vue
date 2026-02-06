@@ -40,7 +40,6 @@
 <script>
 import { actualizarParcialFacade } from '@/clients/matriculaClient'
 export default {
-  inject: ['getToken'],
   data() {
     return {
       id: '',
@@ -62,7 +61,11 @@ export default {
         datos.fechaNacimiento = this.formatFecha(this.fechaNacimiento)
       if (this.genero) datos.genero = this.genero
       if (this.provincia) datos.provincia = this.provincia
-      const res = await actualizarParcialFacade(this.id, datos, this.getToken())
+      const res = await actualizarParcialFacade(
+        this.id,
+        datos,
+        localStorage.getItem('token') || null
+      )
       this.mensaje = 'Estudiante actualizado parcialmente.'
       this.respuesta = res
     },

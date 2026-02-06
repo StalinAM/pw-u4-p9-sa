@@ -37,7 +37,6 @@
 <script>
 import { guardarFacade } from '@/clients/matriculaClient'
 export default {
-  inject: ['getToken'],
   data() {
     return {
       nombre: '',
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     async guardar() {
-      const token = this.getToken ? this.getToken() : null
+      const token = localStorage.getItem('token') || null
       const res = await guardarFacade(
         {
           nombre: this.nombre,

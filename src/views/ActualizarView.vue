@@ -39,7 +39,6 @@
 <script>
 import { actualizarFacade } from '@/clients/matriculaClient'
 export default {
-  inject: ['getToken'],
   data() {
     return {
       id: '',
@@ -63,7 +62,7 @@ export default {
           genero: this.genero,
           provincia: this.provincia
         },
-        this.getToken()
+        localStorage.getItem('token') || null
       )
       this.mensaje = 'Estudiante actualizado.'
       this.respuesta = res
